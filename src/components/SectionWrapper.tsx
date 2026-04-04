@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useInView } from "@/hooks/useInView";
+import { motion } from "framer-motion";
 
 interface Props {
   id: string;
@@ -7,18 +7,17 @@ interface Props {
   className?: string;
 }
 
-const SectionWrapper = ({ id, children, className = "" }: Props) => {
-  const { ref, inView } = useInView(0.1);
-
-  return (
-    <section
-      id={id}
-      ref={ref}
-      className={`section-padding ${className} ${inView ? "animate-fade-up" : "opacity-0"}`}
-    >
-      <div className="container mx-auto max-w-6xl">{children}</div>
-    </section>
-  );
-};
+const SectionWrapper = ({ id, children, className = "" }: Props) => (
+  <motion.section
+    id={id}
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.1 }}
+    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    className={`section-padding ${className}`}
+  >
+    <div className="container mx-auto max-w-6xl">{children}</div>
+  </motion.section>
+);
 
 export default SectionWrapper;
