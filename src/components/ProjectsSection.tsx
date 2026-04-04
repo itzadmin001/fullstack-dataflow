@@ -1,6 +1,7 @@
 import SectionWrapper from "./SectionWrapper";
 import SectionTitle from "./SectionTitle";
 import { ExternalLink, Star } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Project {
   title: string;
@@ -38,15 +39,22 @@ const ProjectsSection = () => (
     <SectionTitle title="Projects" subtitle="A selection of high-impact projects" />
     <div className="grid md:grid-cols-2 gap-6">
       {projects.map((p, i) => (
-        <div
+        <motion.div
           key={i}
-          className={`glass-card-hover p-6 relative ${
-            p.highlight ? "glow-border" : ""
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          className={`glass-card p-6 relative border transition-all duration-300 hover:shadow-xl group ${
+            p.highlight
+              ? "border-primary/30 shadow-lg shadow-primary/5 hover:shadow-primary/10"
+              : "border-border/50 hover:border-primary/30 hover:shadow-primary/5"
           }`}
         >
           {p.highlight && (
             <div className="absolute top-4 right-4 flex items-center gap-1 text-xs text-primary font-mono">
-              <Star size={14} /> Highlight
+              <Star size={14} className="fill-primary" /> Featured
             </div>
           )}
           <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
@@ -58,15 +66,16 @@ const ProjectsSection = () => (
               </span>
             ))}
           </div>
-          <a
+          <motion.a
             href="https://github.com/itzadmin001"
             target="_blank"
             rel="noopener noreferrer"
+            whileHover={{ x: 4 }}
             className="inline-flex items-center gap-2 text-sm text-primary hover:underline transition-colors"
           >
             View on GitHub <ExternalLink size={14} />
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       ))}
     </div>
   </SectionWrapper>
