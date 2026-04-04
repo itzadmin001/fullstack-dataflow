@@ -2,16 +2,12 @@ import SectionWrapper from "./SectionWrapper";
 import SectionTitle from "./SectionTitle";
 import { Database, Code2, Brain, Globe } from "lucide-react";
 import { motion } from "framer-motion";
-
-interface Skill {
-  name: string;
-  level: number; // 0-100
-}
+import TiltCard from "./TiltCard";
 
 interface Category {
   title: string;
   icon: typeof Database;
-  skills: Skill[];
+  skills: string[];
 }
 
 const categories: Category[] = [
@@ -19,42 +15,42 @@ const categories: Category[] = [
     title: "Data Analytics",
     icon: Database,
     skills: [
-      { name: "Advanced SQL (Joins, Window Functions)", level: 92 },
-      { name: "Excel (Advanced)", level: 85 },
-      { name: "Power BI / Tableau", level: 88 },
-      { name: "Data Visualization & Storytelling", level: 90 },
+      "Advanced SQL (Joins, Window Functions, Optimization)",
+      "Excel (Advanced)",
+      "Power BI / Tableau (Interactive Dashboards)",
+      "Data Visualization & Storytelling",
     ],
   },
   {
     title: "Programming",
     icon: Code2,
     skills: [
-      { name: "Python (Pandas, NumPy, Matplotlib)", level: 90 },
-      { name: "JavaScript (ES6+, Async, APIs)", level: 88 },
-      { name: "C++ (DSA, Problem Solving)", level: 75 },
+      "Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "JavaScript (ES6+, Async, APIs)",
+      "C++ (DSA, Problem Solving)",
     ],
   },
   {
     title: "Machine Learning & AI",
     icon: Brain,
     skills: [
-      { name: "Supervised / Unsupervised Learning", level: 85 },
-      { name: "Model Evaluation & Optimization", level: 82 },
-      { name: "Deep Learning Fundamentals", level: 78 },
-      { name: "Generative AI & LLM Applications", level: 80 },
-      { name: "Prompt Engineering", level: 88 },
+      "Supervised / Unsupervised Learning",
+      "Model Evaluation & Optimization",
+      "Deep Learning Fundamentals",
+      "Generative AI & LLM Applications",
+      "Prompt Engineering",
     ],
   },
   {
     title: "Full Stack Development",
     icon: Globe,
     skills: [
-      { name: "React.js (Hooks, State Management)", level: 92 },
-      { name: "Node.js & Express.js", level: 88 },
-      { name: "MongoDB (Aggregation, Design)", level: 85 },
-      { name: "RESTful APIs", level: 90 },
-      { name: "Authentication (JWT)", level: 82 },
-      { name: "Modern UI/UX Development", level: 88 },
+      "React.js (Hooks, Component Architecture, State Management)",
+      "Node.js & Express.js (REST API Development)",
+      "MongoDB (Database Design, Aggregation)",
+      "RESTful APIs (Integration & Development)",
+      "Authentication Systems (JWT)",
+      "Modern UI/UX Development (Responsive Design)",
     ],
   },
 ];
@@ -70,34 +66,30 @@ const SkillsSection = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: i * 0.1 }}
-          whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className="glass-card p-6 border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-300">
-              <cat.icon size={20} />
-            </div>
-            <h3 className="text-lg font-semibold">{cat.title}</h3>
-          </div>
-          <div className="space-y-3.5">
-            {cat.skills.map((s, j) => (
-              <div key={j}>
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm text-muted-foreground">{s.name}</span>
-                  <span className="text-xs text-primary font-mono">{s.level}%</span>
-                </div>
-                <div className="h-1.5 rounded-full bg-secondary/80 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${s.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: j * 0.05, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
-                  />
-                </div>
+          <TiltCard className="glass-card p-6 h-full border border-border/50 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 group cursor-default">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 group-hover:shadow-md group-hover:shadow-primary/10 transition-all duration-300">
+                <cat.icon size={20} />
               </div>
-            ))}
-          </div>
+              <h3 className="text-lg font-semibold">{cat.title}</h3>
+            </div>
+            <ul className="space-y-2.5">
+              {cat.skills.map((s, j) => (
+                <motion.li
+                  key={j}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.1 + j * 0.05 }}
+                  className="flex items-start gap-2.5 text-sm text-muted-foreground"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent mt-1.5 shrink-0" />
+                  {s}
+                </motion.li>
+              ))}
+            </ul>
+          </TiltCard>
         </motion.div>
       ))}
     </div>
