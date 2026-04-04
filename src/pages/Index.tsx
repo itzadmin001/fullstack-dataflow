@@ -8,11 +8,13 @@ import ProjectsSection from "@/components/ProjectsSection";
 import AnalyticsSection from "@/components/AnalyticsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import FloatingSocials from "@/components/FloatingSocials";
 
 const Index = () => (
   <>
     <ScrollProgress />
     <Navbar />
+    <FloatingSocials />
     <HeroSection />
     <AboutSection />
     <EducationSection />
