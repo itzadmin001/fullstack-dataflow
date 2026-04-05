@@ -100,7 +100,7 @@ const HeroSection = () => {
     <section
       id="hero"
       ref={sectionRef}
-      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center px-4 pt-20 relative overflow-hidden"
     >
       {/* Grid dot pattern */}
       <div className="absolute inset-0 pointer-events-none">
