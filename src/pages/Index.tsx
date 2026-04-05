@@ -9,9 +9,13 @@ import AnalyticsSection from "@/components/AnalyticsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingSocials from "@/components/FloatingSocials";
+import CustomCursor from "@/components/CustomCursor";
+import GradientMesh from "@/components/GradientMesh";
 
 const Index = () => (
   <>
+    <CustomCursor />
+    <GradientMesh />
     <ScrollProgress />
     <Navbar />
     <FloatingSocials />
